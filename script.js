@@ -18,7 +18,6 @@ import {
   deleteDoc,
 } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
-// Your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCqeGYlQTO0Q55Ndy9EYp7q0AulIYhDLpA",
   authDomain: "femhack-9fae5.firebaseapp.com",
@@ -30,16 +29,13 @@ const firebaseConfig = {
   measurementId: "G-NPMYDDBLRJ",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-// Mode: signup or login
 let authMode = "signup";
 
-// DOM Elements
 const authSection = document.getElementById("auth-section");
 const boardSection = document.getElementById("board-section");
 const actionBtn = document.getElementById("actionBtn");
@@ -55,7 +51,6 @@ const todoCol = document.getElementById("todo");
 const inprogressCol = document.getElementById("inprogress");
 const doneCol = document.getElementById("done");
 
-// Task form elements
 const taskFormContainer = document.getElementById("task-form-container");
 const taskTitleInput = document.getElementById("taskTitle");
 const taskDescriptionInput = document.getElementById("taskDescription");
@@ -66,9 +61,8 @@ const cancelTaskBtn = document.getElementById("cancelTaskBtn");
 
 const createTaskBtn = document.getElementById("createTaskBtn");
 
-let editingTaskId = null; // null when creating new, or id when editing
+let editingTaskId = null; 
 
-// Toggle between signup and login mode
 toggleLink.addEventListener("click", () => {
   if (authMode === "signup") {
     authMode = "login";
@@ -83,7 +77,6 @@ toggleLink.addEventListener("click", () => {
   }
 });
 
-// Signup or Login function
 actionBtn.addEventListener("click", async () => {
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
@@ -108,7 +101,6 @@ actionBtn.addEventListener("click", async () => {
   }
 });
 
-// Google Sign-In
 googleBtn.addEventListener("click", async () => {
   try {
     await signInWithPopup(auth, provider);
@@ -118,14 +110,11 @@ googleBtn.addEventListener("click", async () => {
   }
 });
 
-// Logout
 logoutBtn.addEventListener("click", async () => {
   await signOut(auth);
 });
 
-// Render tasks in columns
 function renderTasks(tasks) {
-  // Clear columns
   todoCol.innerHTML = "<h2>To Do</h2>";
   inprogressCol.innerHTML = "<h2>In Progress</h2>";
   doneCol.innerHTML = "<h2>Done</h2>";
@@ -168,14 +157,12 @@ function getMoveButtonText(status) {
   }
 }
 
-// Load tasks from Firestore
 async function loadTasks() {
   const snapshot = await getDocs(collection(db, "tasks"));
   const tasks = snapshot.docs.map(docSnap => ({ id: docSnap.id, data: docSnap.data() }));
   renderTasks(tasks);
 }
 
-// Move task to next status
 async function moveTask(id, currentStatus) {
   let newStatus = "todo";
   if (currentStatus === "todo") newStatus = "inprogress";
@@ -186,14 +173,12 @@ async function moveTask(id, currentStatus) {
   loadTasks();
 }
 
-// Delete task
 async function deleteTask(id) {
   if (!confirm("Are you sure you want to delete this task?")) return;
   await deleteDoc(doc(db, "tasks", id));
   loadTasks();
 }
 
-// Open edit form with task data
 function openEditForm(id, data) {
   editingTaskId = id;
   taskTitleInput.value = data.title;
@@ -205,7 +190,6 @@ function openEditForm(id, data) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Clear and hide the task form
 function closeTaskForm() {
   editingTaskId = null;
   taskTitleInput.value = "";
@@ -216,7 +200,6 @@ function closeTaskForm() {
   createTaskBtn.style.display = "inline-block";
 }
 
-// Save task (create or update)
 saveTaskBtn.addEventListener("click", async () => {
   const title = taskTitleInput.value.trim();
   if (!title) {
@@ -229,7 +212,6 @@ saveTaskBtn.addEventListener("click", async () => {
 
   try {
     if (editingTaskId) {
-      // update existing
       await updateDoc(doc(db, "tasks", editingTaskId), {
         title,
         description,
@@ -238,7 +220,6 @@ saveTaskBtn.addEventListener("click", async () => {
       });
       alert("Task updated!");
     } else {
-      // create new
       await addDoc(collection(db, "tasks"), {
         title,
         description,
@@ -255,12 +236,10 @@ saveTaskBtn.addEventListener("click", async () => {
   }
 });
 
-// Cancel task creation/editing
 cancelTaskBtn.addEventListener("click", () => {
   closeTaskForm();
 });
 
-// Show the task form when Create Task button clicked
 createTaskBtn.addEventListener("click", () => {
   closeTaskForm(); // reset form
   taskFormContainer.style.display = "block";
@@ -268,20 +247,17 @@ createTaskBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// React to Auth State changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User logged in
     authSection.style.display = "none";
     boardSection.style.display = "block";
     logoutBtn.style.display = "inline-block";
     loadTasks();
   } else {
-    // No user logged in
     authSection.style.display = "block";
     boardSection.style.display = "none";
     logoutBtn.style.display = "none";
-    closeTaskForm(); // hide form if user logs out while editing
+    closeTaskForm(); 
   }
 });
 
