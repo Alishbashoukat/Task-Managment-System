@@ -1,0 +1,264 @@
+body {
+  background: #223033;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-container,
+.board-container {
+  background: #334547;
+  padding: 30px;
+  border-radius: 8px;
+  width: 350px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Inputs, textarea, select */
+.auth-container input,
+.board-container input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Buttons in auth and board */
+.auth-container button,
+.board-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Main action button (signup/login) */
+#actionBtn {
+  background: linear-gradient(to right, #348fcb, #00f0b1);
+  color: #fff;
+}
+
+#actionBtn:hover {
+  background: linear-gradient(to right, #276a91, #009c8b);
+}
+
+/* Google Sign-In button */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #000;
+  border-radius: 25px;
+  padding: 12px 0;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.google-btn:hover {
+  background: #ddd;
+}
+
+.google-btn img {
+  width: 20px;
+  margin-right: 8px;
+}
+
+/* Toggle auth mode text */
+#toggle-auth {
+  text-align: center;
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+#toggle-auth span {
+  color: #00f0b1;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Board container title */
+.board-container h1 {
+  text-align: center;
+}
+
+/* Search area */
+.search-area {
+  display: flex;
+  margin: 20px 0;
+}
+
+.search-area input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px 0 0 8px;
+  border: none;
+}
+
+.search-area button {
+  width: 80px;
+  background: #348fcb;
+  color: #fff;
+  border-radius: 0 8px 8px 0;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-area button:hover {
+  background: #276a91;
+}
+
+/* Board layout */
+.board {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Columns */
+.column {
+  background: #f5f5f5;
+  color: #000;
+  flex: 1;
+  padding: 16px;
+  border-radius: 8px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.column h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+/* Task cards */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Logout button */
+.logout-btn {
+  margin-top: 20px;
+  background: #f44336;
+  color: #fff;
+  border-radius: 25px;
+  padding: 12px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+/* Card buttons container */
+.card-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Individual card buttons */
+button.move-btn {
+  background-color: #348fcb;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.move-btn:hover {
+  background-color: #276a91;
+}
+
+button.edit-btn {
+  background-color: #00bcd4;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.edit-btn:hover {
+  background-color: #019dbb;
+}
+
+button.delete-btn {
+  background-color: #e53935;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.delete-btn:hover {
+  background-color: #b8322c;
+}
+
+/* Task form container */
+#task-form-container {
+  background: #44585f;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: none; /* initially hidden */
+}
+
+/* Save and Cancel buttons inside form */
+#saveTaskBtn, #cancelTaskBtn {
+  width: 48%;
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#saveTaskBtn {
+  background-color: #00f0b1;
+  color: #000;
+}
+
+#saveTaskBtn:hover {
+  background-color: #00c894;
+}
+
+#cancelTaskBtn {
+  background-color: #f44336;
+  color: #fff;
+}
+
+#cancelTaskBtn:hover {
+  background-color: #c0392b;
+}

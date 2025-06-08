@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>App Management UI Clone</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Auth Section -->
+  <div id="auth-section" class="auth-container">
+    <h1 id="auth-title">SignUp Page</h1>
+    <input id="email" type="email" placeholder="Enter Your Email" required>
+    <input id="password" type="password" placeholder="Enter Your Password" required>
+    <button id="actionBtn">Sign Up</button>
+    <p id="toggle-auth">
+      Already have an account? <span id="toggle-link">Login here</span>
+    </p>
+    <button id="googleBtn" class="google-btn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon">
+      Continue with Google
+    </button>
+  </div>
+
+  <!-- Board Section -->
+  <div id="board-section" class="board-container" style="display:none;">
+    <h1>App Management App</h1>
+
+    <!-- Task Creation Form (hidden initially) -->
+    <div id="task-form-container" style="display:none; margin-bottom: 20px;">
+      <div class="task-form-card">
+        <input id="taskTitle" type="text" placeholder="Task Title" required />
+        <input id="taskDescription" type="text" placeholder="Description" />
+        <input id="taskAssignedTo" type="text" placeholder="Assigned To" />
+        <select id="taskPriority">
+          <option value="Least Important">Least Important</option>
+          <option value="Important">Important</option>
+          <option value="Most Important">Most Important</option>
+        </select>
+        <div class="form-buttons">
+          <button id="saveTaskBtn">Save Task</button>
+          <button id="cancelTaskBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-area">
+      <input id="searchInput" type="text" placeholder="Search tasks...">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div class="board">
+      <div class="column" id="todo">
+        <h2>To Do</h2>
+      </div>
+      <div class="column" id="inprogress">
+        <h2>In Progress</h2>
+      </div>
+      <div class="column" id="done">
+        <h2>Done</h2>
+      </div>
+    </div>
+    <button id="createTaskBtn">Create Task</button>
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
+
+
