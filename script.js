@@ -1,3 +1,4 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
 import {
   getAuth,
@@ -24,8 +25,9 @@ const firebaseConfig = {
   projectId: "femhack-9fae5",
   storageBucket: "femhack-9fae5.appspot.com",
   messagingSenderId: "1008278968390",
-  appId: "1:1008278968390:web:aaf0bb78cda3efe9979247",
+  appId: "1:1008278968390:web:aaf0bb78cda3efe9979247"
 };
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
@@ -92,7 +94,6 @@ googleBtn.onclick = async () => {
   }
 };
 
-
 logoutBtn.onclick = () => signOut(auth);
 
 onAuthStateChanged(auth, (user) => {
@@ -108,7 +109,9 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-createTaskBtn.onclick = () => openModal();
+
+window.openModal = openModal;
+window.logout = () => signOut(auth);
 cancelBtn.onclick = () => closeModal();
 
 function openModal(task = null, key = null) {
@@ -194,9 +197,9 @@ function renderTask(key, t) {
     <small>Assigned: ${t.assigned}</small>
     <div class="actions">
       <select class="move-select">
-        <option value="todo" ${t.status === 'todo'? 'selected': ''}>To Do</option>
-        <option value="inprogress" ${t.status === 'inprogress'? 'selected': ''}>In Progress</option>
-        <option value="done" ${t.status === 'done'? 'selected': ''}>Done</option>
+        <option value="todo" ${t.status === 'todo' ? 'selected' : ''}>To Do</option>
+        <option value="inprogress" ${t.status === 'inprogress' ? 'selected' : ''}>In Progress</option>
+        <option value="done" ${t.status === 'done' ? 'selected' : ''}>Done</option>
       </select>
       <button class="edit-btn">Edit</button>
       <button class="delete-btn">Delete</button>
@@ -205,6 +208,7 @@ function renderTask(key, t) {
   el.querySelector(".move-select").onchange = e => {
     update(ref(db, `tasks/${currentUser.uid}/${key}`), { status: e.target.value });
   };
+
   el.querySelector(".edit-btn").onclick = () => openModal(t, key);
   el.querySelector(".delete-btn").onclick = () => {
     if (confirm("Delete this task?")) {
@@ -216,5 +220,8 @@ function renderTask(key, t) {
     t.status === "todo" ? todoTasks :
     t.status === "inprogress" ? inProgressTasks :
     doneTasks;
+
   target.appendChild(el);
 }
+
+window.openModal = openModal;
