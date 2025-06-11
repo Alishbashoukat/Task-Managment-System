@@ -1,7 +1,8 @@
+
 body {
-  background: #223033;
-  font-family: Arial, sans-serif;
-  color: #fff;
+  background: #FFF2F2;
+  font-family: 'Segoe UI', sans-serif;
+  color: #2D336B;
   margin: 0;
 }
 
@@ -10,25 +11,32 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #334547;
+  background: #A9B5DF;
   padding: 24px;
   margin: 120px auto;
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   width: 100%;
   max-width: 360px;
 }
 
 .auth-container h1 {
   margin-bottom: 16px;
+  color: #2D336B;
 }
 
 .auth-container input {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  border: none;
+  border: 1px solid #7886C7;
   border-radius: 6px;
+  background: #FFF2F2;
+  color: #2D336B;
+}
+
+.auth-container input::placeholder {
+  color: #2D336B;
 }
 
 .auth-container button {
@@ -43,20 +51,20 @@ body {
 }
 
 #actionBtn {
-  background: linear-gradient(to right, #348fcb, #00f0b1);
-  color: #fff;
+  background: linear-gradient(to right, #7886C7, #A9B5DF);
+  color: #FFF2F2;
 }
 
 #actionBtn:hover {
-  background: linear-gradient(to right, #276a91, #009c8b);
+  background: linear-gradient(to right, #6775b2, #96a5ce);
 }
 
 .google-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  color: #000;
+  background: #2D336B;
+  color: #FFF2F2;
   border-radius: 25px;
   padding: 12px 0;
   margin-top: 10px;
@@ -65,7 +73,7 @@ body {
 }
 
 .google-btn:hover {
-  background: #ddd;
+  background: #21264e;
 }
 
 .google-btn img {
@@ -80,7 +88,7 @@ body {
 }
 
 #toggle-auth span {
-  color: #00f0b1;
+  color: #2D336B;
   cursor: pointer;
   font-weight: bold;
 }
@@ -98,12 +106,12 @@ body {
 
 .app-title {
   font-size: 24px;
-  color: #4A90E2;
+  color: #2D336B;
 }
 
 .logout-btn {
-  background: #6366f1;
-  color: white;
+  background: #7886C7;
+  color: #FFF2F2;
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
@@ -111,12 +119,12 @@ body {
 }
 
 .logout-btn:hover {
-  background: #4338ca;
+  background: #6775b2;
 }
 
 .create-btn {
-  background: #10b981;
-  color: white;
+  background: #2D336B;
+  color: #FFF2F2;
   padding: 10px 16px;
   border: none;
   border-radius: 6px;
@@ -125,7 +133,7 @@ body {
 }
 
 .create-btn:hover {
-  background: #059669;
+  background: #1e2342;
 }
 
 .filter-container {
@@ -136,7 +144,13 @@ body {
   width: 100%;
   padding: 8px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #A9B5DF;
+  background: #FFF2F2;
+  color: #2D336B;
+}
+
+#searchInput::placeholder {
+  color: #2D336B;
 }
 
 .board {
@@ -152,27 +166,27 @@ body {
 }
 
 .todo-bg {
-  color: #334547;
-  background: #EAF5FF;
+  background: #E6E9F8;
+  color: #2D336B;
 }
 
 .inprogress-bg {
-  color: #334547;
-  background: #FFF9E5;
+  background: #D7DDF4;
+  color: #2D336B;
 }
 
 .done-bg {
-  color: #334547;
-  background: #E6F6EC;
+  background: #C8D1F1;
+  color: #2D336B;
 }
 
 .task-card {
-  background: #fff;
+  background: #A9B5DF;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 6px;
   box-shadow: 0 0 3px rgba(0,0,0,0.1);
-  color: #000;
+  color: #2D336B;
 }
 
 .task-card h4 {
@@ -182,7 +196,7 @@ body {
 .task-card p {
   margin: 0 0 8px 0;
   font-size: 14px;
-  color: #666;
+  color: #2D336B;
 }
 
 .actions {
@@ -198,33 +212,31 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  color: #FFF2F2;
 }
 
 .actions .edit-btn {
-  background: #6b46c1;
-  color: white;
+  background: #2D336B;
 }
 
 .actions .edit-btn:hover {
-  background: #553c9a;
+  background: #1e2342;
 }
 
 .actions .delete-btn {
-  background: #9b2c2c;
-  color: white;
+  background: #C75D5D;
 }
 
 .actions .delete-btn:hover {
-  background: #7b1e1e;
+  background: #a44848;
 }
 
 .actions .move-btn {
-  background: #3182ce;
-  color: white;
+  background: #7886C7;
 }
 
 .actions .move-btn:hover {
-  background: #2c5282;
+  background: #6775b2;
 }
 
 .modal {
@@ -234,18 +246,18 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(45, 51, 107, 0.5);
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background: white;
+  background: #A9B5DF;
   padding: 20px;
   width: 90%;
   max-width: 400px;
   border-radius: 10px;
-  color: #000;
+  color: #2D336B;
 }
 
 .modal-content input,
@@ -253,8 +265,14 @@ body {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
-  border: 1px solid #ccc;
+  background: #FFF2F2;
+  border: 1px solid #7886C7;
   border-radius: 6px;
+  color: #2D336B;
+}
+
+.modal-content input::placeholder {
+  color: #2D336B;
 }
 
 .modal-buttons {
@@ -271,24 +289,23 @@ body {
 }
 
 #saveTaskBtn {
-  background: #10b981;
-  color: white;
+  background: #2D336B;
+  color: #FFF2F2;
 }
 
 #saveTaskBtn:hover {
-  background: #059669;
+  background: #1e2342;
 }
 
 #cancelBtn {
-  background: #9ca3af;
-  color: white;
+  background: #7886C7;
+  color: #FFF2F2;
 }
 
 #cancelBtn:hover {
-  background: #6b7280;
+  background: #6775b2;
 }
 
-/* RESPONSIVE CSS — ONLY THIS PART ADDED */
 @media (max-width: 768px) {
   .board {
     flex-direction: column;
@@ -328,3 +345,5 @@ body {
     padding: 10px;
   }
 }
+
+
