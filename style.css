@@ -1,3 +1,4 @@
+/* ORIGINAL CSS — UNTOUCHED */
 body {
   background: #223033;
   font-family: Arial, sans-serif;
@@ -12,13 +13,12 @@ body {
   align-items: center;
   background: #334547;
   padding: 24px;
-  margin: 120px auto; 
+  margin: 120px auto;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   width: 100%;
   max-width: 360px;
 }
-
 
 .auth-container h1 {
   margin-bottom: 16px;
@@ -153,20 +153,18 @@ body {
 }
 
 .todo-bg {
-    color : #334547;
-
+  color: #334547;
   background: #EAF5FF;
 }
 
 .inprogress-bg {
-    color : #334547;
-    
+  color: #334547;
   background: #FFF9E5;
 }
 
 .done-bg {
-    color : #334547;
-    background: #E6F6EC;
+  color: #334547;
+  background: #E6F6EC;
 }
 
 .task-card {
@@ -192,6 +190,7 @@ body {
   display: flex;
   gap: 5px;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .actions button {
@@ -288,4 +287,45 @@ body {
 
 #cancelBtn:hover {
   background: #6b7280;
+}
+
+/* RESPONSIVE CSS — ONLY THIS PART ADDED */
+@media (max-width: 768px) {
+  .board {
+    flex-direction: column;
+  }
+
+  .board-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .create-btn, .logout-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 40px 16px;
+    padding: 20px;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+
+  .board-container {
+    padding: 10px;
+  }
 }
