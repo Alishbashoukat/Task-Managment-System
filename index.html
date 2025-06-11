@@ -12,11 +12,11 @@
     <h1 id="auth-title">Sign Up</h1>
     <input id="email" type="email" placeholder="Enter Your Email" required />
     <input id="password" type="password" placeholder="Enter Your Password" required />
-    <button id="actionBtn">Sign Up</button>
+    <button id="actionBtn" type="button">Sign Up</button>
     <p id="toggle-auth">
       Already have an account? <span id="toggle-link">Login here</span>
     </p>
-    <button id="googleBtn" class="google-btn">
+    <button id="googleBtn" class="google-btn" type="button">
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google icon">
       Continue with Google
     </button>
@@ -24,20 +24,18 @@
 
   <div class="board-container" id="board-section" style="display: none;">
     <div class="board-header">
-      <h1 class="app-title">Task Managment System </h1>
-      <button class="logout-btn" id="logoutBtn">Logout</button>
+      <h1 class="app-title">Task Management System</h1>
     </div>
 
     <div class="filter-container">
       <input type="text" id="searchInput" placeholder="Search tasks..." />
     </div>
 
-    <button class="create-btn" id="createTaskBtn">+ New Task</button>
-
     <div class="board">
-      <div class="column todo-bg" id="todoColumn">
+      <div class="column todo-bg">
         <h2>To Do</h2>
-        <div class="task-list" id="todoTasks"></div>
+        <button class="create-btn" onclick="openModal()" type="button">+ Create New Task</button>
+        <div id="todoTasks"></div>
       </div>
       <div class="column inprogress-bg" id="inProgressColumn">
         <h2>In Progress</h2>
@@ -47,6 +45,10 @@
         <h2>Done</h2>
         <div class="task-list" id="doneTasks"></div>
       </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <button class="logout-btn" id="logoutBtn" type="button">Logout</button>
     </div>
   </div>
 
@@ -62,12 +64,12 @@
         <option value="High">High Priority</option>
       </select>
       <div class="modal-buttons">
-        <button id="saveTaskBtn">Save</button>
-        <button id="cancelBtn">Cancel</button>
+        <button id="saveTaskBtn" type="button">Save</button>
+        <button id="cancelBtn" type="button">Cancel</button>
       </div>
     </div>
   </div>
 
-  <script type="module" src="script.js"></script>
+  <script type="module" src="script.js" defer></script>
 </body>
 </html>
