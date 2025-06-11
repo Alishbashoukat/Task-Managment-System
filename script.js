@@ -6,35 +6,30 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
-  signOut,
+  signOut
 } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+  getDatabase,
+  ref,
+  push,
+  onValue,
+  remove,
+  update
+} from "https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCqeGYlQTO0Q55Ndy9EYp7q0AulIYhDLpA",
   authDomain: "femhack-9fae5.firebaseapp.com",
   databaseURL: "https://femhack-9fae5-default-rtdb.firebaseio.com",
   projectId: "femhack-9fae5",
-  storageBucket: "femhack-9fae5.firebasestorage.app",
+  storageBucket: "femhack-9fae5.appspot.com",
   messagingSenderId: "1008278968390",
   appId: "1:1008278968390:web:aaf0bb78cda3efe9979247",
-  measurementId: "G-NPMYDDBLRJ",
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
-
-let authMode = "signup";
 
 const authSection = document.getElementById("auth-section");
 const boardSection = document.getElementById("board-section");
@@ -42,222 +37,184 @@ const actionBtn = document.getElementById("actionBtn");
 const toggleLink = document.getElementById("toggle-link");
 const googleBtn = document.getElementById("googleBtn");
 const logoutBtn = document.getElementById("logoutBtn");
-const authTitle = document.getElementById("auth-title");
-
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
-
-const todoCol = document.getElementById("todo");
-const inprogressCol = document.getElementById("inprogress");
-const doneCol = document.getElementById("done");
-
-const taskFormContainer = document.getElementById("task-form-container");
-const taskTitleInput = document.getElementById("taskTitle");
-const taskDescriptionInput = document.getElementById("taskDescription");
-const taskAssignedToInput = document.getElementById("taskAssignedTo");
-const taskPrioritySelect = document.getElementById("taskPriority");
-const saveTaskBtn = document.getElementById("saveTaskBtn");
-const cancelTaskBtn = document.getElementById("cancelTaskBtn");
-
 const createTaskBtn = document.getElementById("createTaskBtn");
+const taskModal = document.getElementById("taskModal");
+const taskTitle = document.getElementById("taskTitle");
+const taskDesc = document.getElementById("taskDesc");
+const taskAssigned = document.getElementById("taskAssigned");
+const taskPriority = document.getElementById("taskPriority");
+const saveTaskBtn = document.getElementById("saveTaskBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+const todoTasks = document.getElementById("todoTasks");
+const inProgressTasks = document.getElementById("inProgressTasks");
+const doneTasks = document.getElementById("doneTasks");
+const searchInput = document.getElementById("searchInput");
 
-let editingTaskId = null; 
+let authMode = "signup";
+let currentUser = null;
+let editMode = false;
+let editKey = null;
 
-toggleLink.addEventListener("click", () => {
-  if (authMode === "signup") {
-    authMode = "login";
-    authTitle.textContent = "Login Page";
-    actionBtn.textContent = "Login";
-    toggleLink.textContent = "Sign up here";
-  } else {
-    authMode = "signup";
-    authTitle.textContent = "SignUp Page";
-    actionBtn.textContent = "Sign Up";
-    toggleLink.textContent = "Login here";
-  }
-});
+toggleLink.onclick = () => {
+  authMode = authMode === "signup" ? "login" : "signup";
+  document.getElementById("auth-title").textContent =
+    authMode === "signup" ? "SignUp Page" : "Login Page";
+  actionBtn.textContent = authMode === "signup" ? "Sign Up" : "Login";
+  toggleLink.textContent = authMode === "signup"
+    ? "Already have an account? Login here"
+    : "Don't have an account? Sign up here";
+};
 
-actionBtn.addEventListener("click", async () => {
+actionBtn.onclick = async () => {
   const email = emailInput.value.trim();
-  const password = passwordInput.value.trim();
-
-  if (!email || !password) {
-    alert("Please enter email and password.");
-    return;
-  }
-
+  const pass = passwordInput.value.trim();
+  if (!email || !pass) return alert("Enter email and password");
   try {
     if (authMode === "signup") {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Signup successful!");
+      await createUserWithEmailAndPassword(auth, email, pass);
     } else {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful!");
+      await signInWithEmailAndPassword(auth, email, pass);
     }
-    emailInput.value = "";
-    passwordInput.value = "";
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    return alert(err.message);
   }
-});
+  emailInput.value = "";
+  passwordInput.value = "";
+};
 
-googleBtn.addEventListener("click", async () => {
+googleBtn.onclick = async () => {
   try {
     await signInWithPopup(auth, provider);
-    alert("Google login successful!");
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    alert(err.message);
   }
-});
+};
 
-logoutBtn.addEventListener("click", async () => {
-  await signOut(auth);
-});
 
-function renderTasks(tasks) {
-  todoCol.innerHTML = "<h2>To Do</h2>";
-  inprogressCol.innerHTML = "<h2>In Progress</h2>";
-  doneCol.innerHTML = "<h2>Done</h2>";
-
-  tasks.forEach(({ id, data }) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <h4>${data.title}</h4>
-      <p>${data.description}</p>
-      <p><strong>Assigned to:</strong> ${data.assignedTo}</p>
-      <p><strong>Priority:</strong> ${data.priority}</p>
-      <div class="card-buttons" style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button class="move-btn">${getMoveButtonText(data.status)}</button>
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      </div>
-    `;
-
-    card.querySelector(".move-btn").addEventListener("click", () => moveTask(id, data.status));
-    card.querySelector(".edit-btn").addEventListener("click", () => openEditForm(id, data));
-    card.querySelector(".delete-btn").addEventListener("click", () => deleteTask(id));
-
-    if (data.status === "todo") todoCol.appendChild(card);
-    else if (data.status === "inprogress") inprogressCol.appendChild(card);
-    else if (data.status === "done") doneCol.appendChild(card);
-  });
-}
-
-function getMoveButtonText(status) {
-  switch (status) {
-    case "todo":
-      return "Move to In Progress";
-    case "inprogress":
-      return "Move to Done";
-    case "done":
-      return "Move to To Do";
-    default:
-      return "Move";
-  }
-}
-
-async function loadTasks() {
-  const snapshot = await getDocs(collection(db, "tasks"));
-  const tasks = snapshot.docs.map(docSnap => ({ id: docSnap.id, data: docSnap.data() }));
-  renderTasks(tasks);
-}
-
-async function moveTask(id, currentStatus) {
-  let newStatus = "todo";
-  if (currentStatus === "todo") newStatus = "inprogress";
-  else if (currentStatus === "inprogress") newStatus = "done";
-  else if (currentStatus === "done") newStatus = "todo";
-
-  await updateDoc(doc(db, "tasks", id), { status: newStatus });
-  loadTasks();
-}
-
-async function deleteTask(id) {
-  if (!confirm("Are you sure you want to delete this task?")) return;
-  await deleteDoc(doc(db, "tasks", id));
-  loadTasks();
-}
-
-function openEditForm(id, data) {
-  editingTaskId = id;
-  taskTitleInput.value = data.title;
-  taskDescriptionInput.value = data.description;
-  taskAssignedToInput.value = data.assignedTo;
-  taskPrioritySelect.value = data.priority;
-  taskFormContainer.style.display = "block";
-  createTaskBtn.style.display = "none";
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function closeTaskForm() {
-  editingTaskId = null;
-  taskTitleInput.value = "";
-  taskDescriptionInput.value = "";
-  taskAssignedToInput.value = "";
-  taskPrioritySelect.value = "Least Important";
-  taskFormContainer.style.display = "none";
-  createTaskBtn.style.display = "inline-block";
-}
-
-saveTaskBtn.addEventListener("click", async () => {
-  const title = taskTitleInput.value.trim();
-  if (!title) {
-    alert("Task title is required.");
-    return;
-  }
-  const description = taskDescriptionInput.value.trim();
-  const assignedTo = taskAssignedToInput.value.trim();
-  const priority = taskPrioritySelect.value;
-
-  try {
-    if (editingTaskId) {
-      await updateDoc(doc(db, "tasks", editingTaskId), {
-        title,
-        description,
-        assignedTo,
-        priority,
-      });
-      alert("Task updated!");
-    } else {
-      await addDoc(collection(db, "tasks"), {
-        title,
-        description,
-        assignedTo,
-        priority,
-        status: "todo",
-      });
-      alert("Task created!");
-    }
-    closeTaskForm();
-    loadTasks();
-  } catch (e) {
-    alert("Error saving task: " + e.message);
-  }
-});
-
-cancelTaskBtn.addEventListener("click", () => {
-  closeTaskForm();
-});
-
-createTaskBtn.addEventListener("click", () => {
-  closeTaskForm(); // reset form
-  taskFormContainer.style.display = "block";
-  createTaskBtn.style.display = "none";
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+logoutBtn.onclick = () => signOut(auth);
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    currentUser = user;
     authSection.style.display = "none";
     boardSection.style.display = "block";
-    logoutBtn.style.display = "inline-block";
     loadTasks();
   } else {
-    authSection.style.display = "block";
+    currentUser = null;
+    authSection.style.display = "flex";
     boardSection.style.display = "none";
-    logoutBtn.style.display = "none";
-    closeTaskForm(); 
   }
 });
 
+createTaskBtn.onclick = () => openModal();
+cancelBtn.onclick = () => closeModal();
+
+function openModal(task = null, key = null) {
+  taskModal.style.display = "flex";
+  if (task) {
+    taskTitle.value = task.title;
+    taskDesc.value = task.desc;
+    taskAssigned.value = task.assigned;
+    taskPriority.value = task.priority;
+    editMode = true;
+    editKey = key;
+  } else {
+    taskTitle.value = "";
+    taskDesc.value = "";
+    taskAssigned.value = "";
+    taskPriority.value = "Low";
+    editMode = false;
+    editKey = null;
+  }
+}
+
+function closeModal() {
+  taskModal.style.display = "none";
+}
+
+saveTaskBtn.onclick = () => {
+  if (!currentUser) return alert("Please log in first");
+  const title = taskTitle.value.trim();
+  if (!title) return alert("Title is required");
+
+  const task = {
+    title,
+    desc: taskDesc.value.trim(),
+    assigned: taskAssigned.value.trim(),
+    priority: taskPriority.value,
+    status: "todo",
+  };
+
+  const tasksRef = ref(db, `tasks/${currentUser.uid}`);
+  const operation = editMode && editKey
+    ? update(ref(db, `tasks/${currentUser.uid}/${editKey}`), task)
+    : push(tasksRef, task);
+
+  operation
+    .then(() => {
+      alert(editMode ? "Task updated!" : "Task created!");
+      closeModal();
+      loadTasks();
+    })
+    .catch(err => alert(err.message));
+};
+
+searchInput.oninput = loadTasks;
+
+function loadTasks() {
+  if (!currentUser) return;
+  const q = searchInput.value.trim().toLowerCase();
+  const tasksRef = ref(db, `tasks/${currentUser.uid}`);
+
+  onValue(tasksRef, (snapshot) => {
+    todoTasks.innerHTML = "";
+    inProgressTasks.innerHTML = "";
+    doneTasks.innerHTML = "";
+
+    snapshot.forEach(child => {
+      const key = child.key;
+      const t = child.val();
+
+      if (q && ![t.title, t.desc, t.assigned].some(str => str.toLowerCase().includes(q))) {
+        return;
+      }
+      renderTask(key, t);
+    });
+  });
+}
+
+function renderTask(key, t) {
+  const el = document.createElement("div");
+  el.className = `task-card ${t.priority.toLowerCase()}`;
+  el.innerHTML = `
+    <h4>${t.title}</h4>
+    <p>${t.desc}</p>
+    <small>Assigned: ${t.assigned}</small>
+    <div class="actions">
+      <select class="move-select">
+        <option value="todo" ${t.status === 'todo'? 'selected': ''}>To Do</option>
+        <option value="inprogress" ${t.status === 'inprogress'? 'selected': ''}>In Progress</option>
+        <option value="done" ${t.status === 'done'? 'selected': ''}>Done</option>
+      </select>
+      <button class="edit-btn">Edit</button>
+      <button class="delete-btn">Delete</button>
+    </div>`;
+
+  el.querySelector(".move-select").onchange = e => {
+    update(ref(db, `tasks/${currentUser.uid}/${key}`), { status: e.target.value });
+  };
+  el.querySelector(".edit-btn").onclick = () => openModal(t, key);
+  el.querySelector(".delete-btn").onclick = () => {
+    if (confirm("Delete this task?")) {
+      remove(ref(db, `tasks/${currentUser.uid}/${key}`));
+    }
+  };
+
+  const target =
+    t.status === "todo" ? todoTasks :
+    t.status === "inprogress" ? inProgressTasks :
+    doneTasks;
+  target.appendChild(el);
+}
