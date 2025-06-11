@@ -3,43 +3,44 @@ body {
   font-family: Arial, sans-serif;
   color: #fff;
   margin: 0;
+}
+
+.auth-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-}
-
-.auth-container,
-.board-container {
   background: #334547;
-  padding: 30px;
+  padding: 24px;
+  margin: 120px auto; 
   border-radius: 8px;
-  width: 350px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 360px;
 }
 
-.auth-container input,
-.board-container input,
-textarea,
-select {
+
+.auth-container h1 {
+  margin-bottom: 16px;
+}
+
+.auth-container input {
   width: 100%;
-  padding: 12px;
-  margin: 12px 0;
+  padding: 10px;
+  margin-top: 10px;
   border: none;
-  border-radius: 8px;
-  box-sizing: border-box;
+  border-radius: 6px;
 }
 
-.auth-container button,
-.board-container button {
-  width: 100%;
-  padding: 12px;
+.auth-container button {
+  padding: 10px;
+  font-size: 15px;
   margin-top: 12px;
   border: none;
   border-radius: 25px;
-  font-size: 16px;
+  width: 100%;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s ease;
 }
 
 #actionBtn {
@@ -85,165 +86,201 @@ select {
   font-weight: bold;
 }
 
-.board-container h1 {
-  text-align: center;
+.board-container {
+  padding: 20px;
 }
 
-.search-area {
+.board-header {
   display: flex;
-  margin: 20px 0;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.search-area input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px 0 0 8px;
-  border: none;
+.app-title {
+  font-size: 24px;
+  color: #4A90E2;
 }
 
-.search-area button {
-  width: 80px;
-  background: #348fcb;
-  color: #fff;
-  border-radius: 0 8px 8px 0;
+.logout-btn {
+  background: #6366f1;
+  color: white;
+  padding: 8px 16px;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.search-area button:hover {
-  background: #276a91;
+.logout-btn:hover {
+  background: #4338ca;
+}
+
+.create-btn {
+  background: #10b981;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.create-btn:hover {
+  background: #059669;
+}
+
+.filter-container {
+  margin-bottom: 10px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 .board {
   display: flex;
   gap: 20px;
-  justify-content: space-between;
-  margin-top: 20px;
 }
 
 .column {
-  background: #f5f5f5;
-  color: #000;
   flex: 1;
-  padding: 16px;
+  padding: 10px;
   border-radius: 8px;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
+  min-height: 400px;
 }
 
-.column h2 {
-  text-align: center;
-  margin-top: 0;
+.todo-bg {
+  background: #EAF5FF;
 }
 
-.card {
+.inprogress-bg {
+  background: #FFF9E5;
+}
+
+.done-bg {
+  background: #E6F6EC;
+}
+
+.task-card {
   background: #fff;
-  border-radius: 8px;
   padding: 10px;
-  margin: 10px 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+  color: #000;
 }
 
-.logout-btn {
-  margin-top: 20px;
-  background: #f44336;
-  color: #fff;
-  border-radius: 25px;
-  padding: 12px;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
+.task-card h4 {
+  margin: 0 0 5px 0;
 }
 
-.logout-btn:hover {
-  background: #c0392b;
-}
-
-.card-buttons {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-button.move-btn {
-  background-color: #348fcb;
-  color: white;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button.move-btn:hover {
-  background-color: #276a91;
-}
-
-button.edit-btn {
-  background-color: #00bcd4;
-  color: white;
-  border-radius: 8px;
-  padding: 6px 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button.edit-btn:hover {
-  background-color: #019dbb;
-}
-
-button.delete-btn {
-  background-color: #e53935;
-  color: white;
-  border-radius: 8px;
-  padding: 6px 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button.delete-btn:hover {
-  background-color: #b8322c;
-}
-
-#task-form-container {
-  background: #44585f;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  display: none; 
-}
-
-#saveTaskBtn, #cancelTaskBtn {
-  width: 48%;
-  padding: 10px;
+.task-card p {
+  margin: 0 0 8px 0;
   font-size: 14px;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
   margin-top: 10px;
+}
+
+.actions button {
+  padding: 5px 8px;
+  font-size: 12px;
   border: none;
-  border-radius: 20px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+}
+
+.actions .edit-btn {
+  background: #6b46c1;
+  color: white;
+}
+
+.actions .edit-btn:hover {
+  background: #553c9a;
+}
+
+.actions .delete-btn {
+  background: #9b2c2c;
+  color: white;
+}
+
+.actions .delete-btn:hover {
+  background: #7b1e1e;
+}
+
+.actions .move-btn {
+  background: #3182ce;
+  color: white;
+}
+
+.actions .move-btn:hover {
+  background: #2c5282;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  color: #000;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 #saveTaskBtn {
-  background-color: #00f0b1;
-  color: #000;
+  background: #10b981;
+  color: white;
 }
 
 #saveTaskBtn:hover {
-  background-color: #00c894;
+  background: #059669;
 }
 
-#cancelTaskBtn {
-  background-color: #f44336;
-  color: #fff;
+#cancelBtn {
+  background: #9ca3af;
+  color: white;
 }
 
-#cancelTaskBtn:hover {
-  background-color: #c0392b;
+#cancelBtn:hover {
+  background: #6b7280;
 }
