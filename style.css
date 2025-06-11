@@ -153,15 +153,20 @@ body {
 }
 
 .todo-bg {
+    color : #334547;
+
   background: #EAF5FF;
 }
 
 .inprogress-bg {
+    color : #334547;
+    
   background: #FFF9E5;
 }
 
 .done-bg {
-  background: #E6F6EC;
+    color : #334547;
+    background: #E6F6EC;
 }
 
 .task-card {
