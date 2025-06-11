@@ -1,7 +1,7 @@
 body {
   background: #223033;
   font-family: Arial, sans-serif;
-  color: #fff;
+  color: #000;
   margin: 0;
 }
 
@@ -50,7 +50,9 @@ body {
 #actionBtn:hover {
   background: linear-gradient(to right, #276a91, #009c8b);
 }
-
+#auth-title{
+  color: #fff;
+}
 .google-btn {
   display: flex;
   align-items: center;
@@ -77,6 +79,7 @@ body {
   text-align: center;
   margin: 12px 0;
   font-size: 14px;
+  color: #fff;
 }
 
 #toggle-auth span {
@@ -85,245 +88,263 @@ body {
   font-weight: bold;
 }
 
+
 .board-container {
-  padding: 20px;
+  padding: 30px 20px;
 }
 
 .board-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  padding: 0 10px;
 }
 
 .app-title {
-  font-size: 24px;
-  color: #4A90E2;
+  font-size: 32px;
+  color: #16d3c7;
 }
 
 .logout-btn {
-  background: #6366f1;
+  padding: 10px 16px;
+  background-color: #348fcb;
   color: white;
-  padding: 8px 16px;
   border: none;
   border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
 }
 
 .logout-btn:hover {
-  background: #4338ca;
-}
-
-.create-btn {
-  background: #10b981;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 16px;
-}
-
-.create-btn:hover {
-  background: #059669;
+  background-color: #1e70a8;
 }
 
 .filter-container {
-  margin-bottom: 10px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 #searchInput {
-  width: 100%;
-  padding: 8px;
+  padding: 10px;
+  width: 300px;
   border-radius: 6px;
   border: 1px solid #ccc;
 }
 
+.create-btn {
+  display: block;
+  margin: 10px auto 30px auto;
+  padding: 10px 20px;
+  background-color: #22c55e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  background-color: #16a34a;
+}
+
 .board {
   display: flex;
+  justify-content: center;
   gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
 }
 
 .column {
   flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  min-height: 400px;
+  min-width: 280px;
+  max-width: 350px;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .todo-bg {
-  color: #334547;
-  background: #EAF5FF;
+  background-color: #eaf5ff;
 }
 
 .inprogress-bg {
-  color: #334547;
-  background: #FFF9E5;
+  background-color: #fff9e5;
 }
 
 .done-bg {
-  color: #334547;
-  background: #E6F6EC;
+  background-color: #e6f6ec;
+}
+
+.column h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .task-card {
-  background: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 6px;
-  box-shadow: 0 0 3px rgba(0,0,0,0.1);
-  color: #000;
+  background-color: #ffffff;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .task-card h4 {
-  margin: 0 0 5px 0;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .task-card p {
-  margin: 0 0 8px 0;
+  margin: 4px 0;
   font-size: 14px;
-  color: #666;
+  color: #333;
 }
 
 .actions {
+  margin-top: 12px;
   display: flex;
-  gap: 5px;
-  margin-top: 10px;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
 .actions button {
-  padding: 5px 8px;
-  font-size: 12px;
+  padding: 6px 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 12px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-.actions .edit-btn {
-  background: #6b46c1;
+.move-btn {
+  background-color: #22c55e;
   color: white;
 }
 
-.actions .edit-btn:hover {
-  background: #553c9a;
+.move-btn:hover {
+  background-color: #16a34a;
 }
 
-.actions .delete-btn {
-  background: #9b2c2c;
+.edit-btn {
+  background-color: #f59e0b;
   color: white;
 }
 
-.actions .delete-btn:hover {
-  background: #7b1e1e;
+.edit-btn:hover {
+  background-color: #d97706;
 }
 
-.actions .move-btn {
-  background: #3182ce;
+.delete-btn {
+  background-color: #ef4444;
   color: white;
 }
 
-.actions .move-btn:hover {
-  background: #2c5282;
+.delete-btn:hover {
+  background-color: #b91c1c;
 }
 
 .modal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
-  background: white;
-  padding: 20px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
   width: 90%;
   max-width: 400px;
-  border-radius: 10px;
-  color: #000;
 }
 
 .modal-content input,
 .modal-content select {
   width: 100%;
   padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
+  margin: 10px 0;
   border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 .modal-buttons {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: space-between;
+  margin-top: 15px;
 }
 
 .modal-buttons button {
-  padding: 8px 14px;
-  border: none;
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  font-weight: bold;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
 }
 
 #saveTaskBtn {
-  background: #10b981;
+  background-color: #22c55e;
   color: white;
-}
-
-#saveTaskBtn:hover {
-  background: #059669;
 }
 
 #cancelBtn {
-  background: #9ca3af;
+  background-color: #ef4444;
   color: white;
-}
-
-#cancelBtn:hover {
-  background: #6b7280;
 }
 
 @media (max-width: 768px) {
   .board {
     flex-direction: column;
+    align-items: center;
   }
 
-  .board-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  #searchInput {
+    width: 80%;
   }
 
-  .create-btn, .logout-btn {
-    width: 100%;
+  .create-btn {
+    width: 80%;
   }
-}
 
-@media (max-width: 480px) {
   .auth-container {
-    margin: 40px 16px;
-    padding: 20px;
-  }
-
-  .modal-content {
-    width: 95%;
-  }
-
-  .actions {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .actions button {
-    width: 100%;
-  }
-
-  .board-container {
-    padding: 10px;
+    margin: 40px 20px;
   }
 }
+
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.app-title {
+  flex: 1 1 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.logout-btn {
+  align-self: center;
+  margin-left: auto;
+}
+
+
+
+
+
+
+
+
+ 
